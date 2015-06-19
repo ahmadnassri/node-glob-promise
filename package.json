@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "name": "glob-promise",
+  "description": "Promise version of glob",
+  "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com/)",
+  "homepage": "https://ahmadnassri/glob-promise",
+  "repository": "ahmadnassri/glob-promise",
+  "license": "ISC",
+  "main": "lib/index",
+  "keywords": [
+    "glob",
+    "promise"
+  ],
+  "engines": {
+    "node": ">=0.10"
+  },
+  "files": [
+    "lib"
+  ],
+  "bugs": {
+    "url": "https://github.com/ahmadnassri/glob-promise/issues"
+  },
+  "scripts": {
+    "pretest": "standard && echint",
+    "test": "mocha",
+    "posttest": "npm run coverage",
+    "coverage": "istanbul cover --dir coverage _mocha -- -R dot",
+    "codeclimate": "codeclimate < coverage/lcov.info"
+  },
+  "echint": {
+    "ignore": [
+      "coverage/**"
+    ]
+  },
+  "devDependencies": {
+    "codeclimate-test-reporter": "0.0.4",
+    "echint": "^1.2.0",
+    "istanbul": "^0.3.15",
+    "mocha": "^2.2.5",
+    "should": "^7.0.1",
+    "standard": "^4.3.1"
+  },
+  "dependencies": {
+    "glob": "^5.0.10",
+    "wrap-promise": "^1.0.1"
+  }
+}
