@@ -3,7 +3,7 @@
   "name": "glob-promise",
   "description": "Promise version of glob",
   "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com/)",
-  "homepage": "https://ahmadnassri/glob-promise",
+  "homepage": "https://github.com/ahmadnassri/glob-promise",
   "repository": "ahmadnassri/glob-promise",
   "license": "ISC",
   "main": "lib/index",
@@ -41,7 +41,6 @@
     "standard": "^4.3.1"
   },
   "dependencies": {
-    "glob": "^5.0.10",
-    "wrap-promise": "^1.0.1"
+    "glob": "^5.0.10"
   }
 }
