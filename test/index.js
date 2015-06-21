@@ -1,4 +1,4 @@
-/* global describe, it */
+/* global describe, it*/
 
 'use strict'
 
@@ -24,12 +24,16 @@ describe('node module', function () {
   })
 
   it('should throw a type error when the first argument is not a string.', function (done) {
-    glob.bind(null, {}).should.throw()
-    done()
+    glob({}).catch(function (err) {
+      err.message.should.equal('glob pattern string required')
+      done()
+    })
   })
 
   it('should throw a type error when it takes no arguments.', function (done) {
-    glob.bind(null).should.throw()
-    done()
+    glob().catch(function (err) {
+      err.message.should.equal('glob pattern string required')
+      done()
+    })
   })
 })
