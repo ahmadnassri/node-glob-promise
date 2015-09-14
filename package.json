@@ -41,6 +41,6 @@
     "standard": "^4.3.1"
   },
   "dependencies": {
-    "glob": "^5.0.10"
+    "glob": "*"
   }
 }
