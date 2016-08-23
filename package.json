@@ -32,6 +32,7 @@
       "coverage/**"
     ]
   },
+  "typings": "lib/index.d.ts",
   "devDependencies": {
     "codeclimate-test-reporter": "^0.3.1",
     "echint": "^1.5.3",
