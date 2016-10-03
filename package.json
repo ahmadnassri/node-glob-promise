@@ -41,6 +41,6 @@
     "standard": "^8.0.0"
   },
   "peerDependencies": {
-    "glob": "*"
+    "glob": "7.1.0"
   }
 }
