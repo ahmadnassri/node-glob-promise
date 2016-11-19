@@ -8,24 +8,43 @@
 [![Downloads][npm-downloads]][npm-url]
 [![Code Climate][codeclimate-quality]][codeclimate-url]
 [![Coverage Status][codeclimate-coverage]][codeclimate-url]
+[![Dependency Status][dependencyci-image]][dependencyci-url]
 [![Dependencies][david-image]][david-url]
 
 ## Install
 
-```sh
-npm install --save glob-promise
+```bash
+npm install --only=production --save glob-promise
+```
+
+## Usage
+
+I recommend using an optimized build matching your Node.js environment version, otherwise, the standard `require` would work just fine with any version of Node `>= v4.0` .
+
+```js
+/*
+ * Node 7
+ */
+const glob = require('glob-promise/lib/node7')
+
+/*
+ * Node 6
+ */
+const glob = require('glob-promise/lib/node6')
+
+/*
+ * Node 4 (Default)
+ * Note: additional ES2015 polyfills may be required
+ */
+var glob = require('glob-promise')
 ```
 
 ## API
 
-```js
-var glob = require('glob-promise')
-```
-
 ### glob(pattern [, options])
 
-*pattern*: `String` (glob pattern)  
-*options*: `Object` or `String`  
+*pattern*: `String` (glob pattern)
+*options*: `Object` or `String`
 Return: `Object` ([Promise])
 
 When it finishes, it will be [*fulfilled*](http://promisesaplus.com/#point-26) with an `Array` of filenames as its first argument.
@@ -48,11 +67,13 @@ glob('{foo,bar.baz}.txt', { nobrace: true })
 
 The option object will be directly passed to [glob](https://github.com/isaacs/node-glob#options).
 
-## License
+----
+> :copyright: [ahmadnassri.com](https://www.ahmadnassri.com/) &nbsp;&middot;&nbsp;
+> License: [ISC][license-url] &nbsp;&middot;&nbsp;
+> Github: [@ahmadnassri](https://github.com/ahmadnassri) &nbsp;&middot;&nbsp;
+> Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
 
-[ISC License](LICENSE) &copy; [Ahmad Nassri](https://www.ahmadnassri.com/)
-
-[license-url]: https://github.com/ahmadnassri/glob-promise/blob/master/LICENSE
+[license-url]: http://choosealicense.com/licenses/isc/
 
 [travis-url]: https://travis-ci.org/ahmadnassri/glob-promise
 [travis-image]: https://img.shields.io/travis/ahmadnassri/glob-promise.svg?style=flat-square
@@ -68,6 +89,9 @@ The option object will be directly passed to [glob](https://github.com/isaacs/no
 
 [david-url]: https://david-dm.org/ahmadnassri/glob-promise
 [david-image]: https://img.shields.io/david/ahmadnassri/glob-promise.svg?style=flat-square
+
+[dependencyci-url]: https://dependencyci.com/github/ahmadnassri/glob-promise
+[dependencyci-image]: https://dependencyci.com/github/ahmadnassri/glob-promise/badge?style=flat-square
 
 [glob]: https://github.com/isaacs/node-glob
 [Promise]: http://promisesaplus.com/

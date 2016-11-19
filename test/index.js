@@ -1,39 +1,33 @@
-/* global describe, it*/
+import glob from '../src/index'
+import { test } from 'tap'
 
-'use strict'
+test('should successfully parse', (assert) => {
+  assert.plan(2)
 
-var assert = require('assert')
-var glob = require('..')
-var util = require('util')
-
-describe('node module', function () {
-  it('should successfully parse', function (done) {
-    glob('test/**').then(function (files) {
-      assert.equal(true, util.isArray(files))
-      assert.deepEqual([ 'test', 'test/index.js' ], files)
-
-      done()
+  glob('test/**')
+    .then((files) => {
+      assert.type(files, Array)
+      assert.same(files, [ 'test', 'test/index.js' ])
     })
-  })
+})
 
-  it('should be rejected when globbing fails', function (done) {
-    glob('/**/*').catch(function (err) {
-      assert.equal('EACCES', err.code)
-      done()
-    })
-  })
+test('should be rejected when globbing fails', (assert) => {
+  assert.plan(1)
 
-  it('should throw a type error when the first argument is not a string.', function (done) {
-    glob({}).catch(function (err) {
-      assert.equal('glob pattern string required', err.message)
-      done()
-    })
-  })
+  glob('/**/*')
+    .catch((err) => assert.equal(err.code, 'EACCES'))
+})
 
-  it('should throw a type error when it takes no arguments.', function (done) {
-    glob().catch(function (err) {
-      assert.equal('glob pattern string required', err.message)
-      done()
-    })
-  })
+test('should throw a type error when the first argument is not a string.', (assert) => {
+  assert.plan(1)
+
+  glob({})
+    .catch((err) => assert.equal(err.message, 'glob pattern string required'))
+})
+
+test('should throw a type error when it takes no arguments.', (assert) => {
+  assert.plan(1)
+
+  glob()
+    .catch((err) => assert.equal(err.message, 'glob pattern string required'))
 })

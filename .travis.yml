@@ -1,14 +1,32 @@
-sudo: false
-
 language: node_js
 
 node_js:
  - 4
  - 6
+ - 7
+
+env:
+  - BABEL_ENV=test
+
+matrix:
+  fast_finish: true
 
 cache:
   directories:
     - node_modules
 
-after_script:
+before_script:
+  - npm prune
+
+after_success:
+  - npm run coverage
   - npm run codeclimate
+  - BABEL_ENV=v4 npm run compile -- -d lib
+  - BABEL_ENV=v6 npm run compile -- -d lib/node6
+  - BABEL_ENV=v7 npm run compile -- -d lib/node7
+  - npm run semantic-release
+
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+    - /^greenkeeper\/.+/
