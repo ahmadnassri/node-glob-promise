@@ -3,7 +3,18 @@
 const glob = require('../lib')
 const test = require('tap').test
 
-test('should successfully parse', assert => {
+test('exports', assert => {
+  assert.plan(6)
+
+  assert.type(glob, 'function')
+  assert.type(glob.glob, 'function')
+  assert.type(glob.Glob, 'function')
+  assert.type(glob.hasMagic, 'function')
+  assert.type(glob.promise, 'function')
+  assert.type(glob.sync, 'function')
+})
+
+test('successfully parse', assert => {
   assert.plan(2)
 
   glob('test/**')
@@ -13,21 +24,21 @@ test('should successfully parse', assert => {
     })
 })
 
-test('should be rejected when globbing fails', assert => {
+test('be rejected when globbing fails', assert => {
   assert.plan(1)
 
   glob('/**/*', { silent: true })
     .catch(err => assert.equal(err.code, 'EACCES'))
 })
 
-test('should throw a type error when the first argument is not a string.', assert => {
+test('throw a type error when the first argument is not a string.', assert => {
   assert.plan(1)
 
   glob({})
     .catch(err => assert.equal(err.message, 'glob pattern string required'))
 })
 
-test('should throw a type error when it takes no arguments.', assert => {
+test('throw a type error when it takes no arguments.', assert => {
   assert.plan(1)
 
   glob()
