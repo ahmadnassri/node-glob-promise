@@ -1,6 +1,6 @@
 'use strict'
 
-const glob = require('../src/index')
+const glob = require('../lib')
 const test = require('tap').test
 
 test('should successfully parse', assert => {
