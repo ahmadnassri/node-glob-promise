@@ -19,7 +19,11 @@ npm install --only=production --save glob-promise
 
 ## API
 
-### glob(pattern [, options])
+### `glob(pattern [, options])`
+
+Alias for `glob.promise`
+
+### `glob.promise(pattern [, options])`
 
 _pattern_: `String` (glob pattern)
 _options_: `Object` or `String`
@@ -40,6 +44,23 @@ glob('{foo,bar.baz}.txt', { nobrace: true })
     contents; //=> []
   });
 ```
+
+### `glob.glob(pattern [, options], cb)`
+
+> see [`glob`](https://github.com/isaacs/node-glob#globpattern-options-cb)
+
+### `glob.sync(pattern [, options])`
+
+> see [`glob.sync()`](https://github.com/isaacs/node-glob#globsyncpattern-options)
+
+### `glob.hasMagic(pattern, [options])`
+
+> see [`glob.hasMagic()`](https://github.com/isaacs/node-glob#globhasmagicpattern-options)
+
+### `Class: glob.Glob`
+
+> see [`Glob`](https://github.com/isaacs/node-glob#class-globglob)
+
 
 #### options
 
