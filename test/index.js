@@ -16,7 +16,7 @@ test('should successfully parse', assert => {
 test('should be rejected when globbing fails', assert => {
   assert.plan(1)
 
-  glob('/**/*')
+  glob('/**/*', { silent: true })
     .catch(err => assert.equal(err.code, 'EACCES'))
 })
 
