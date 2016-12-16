@@ -1,33 +1,35 @@
-import glob from '../src/index'
-import { test } from 'tap'
+'use strict'
 
-test('should successfully parse', (assert) => {
+const glob = require('../src/index')
+const test = require('tap').test
+
+test('should successfully parse', assert => {
   assert.plan(2)
 
   glob('test/**')
-    .then((files) => {
+    .then(files => {
       assert.type(files, Array)
       assert.same(files, [ 'test', 'test/index.js' ])
     })
 })
 
-test('should be rejected when globbing fails', (assert) => {
+test('should be rejected when globbing fails', assert => {
   assert.plan(1)
 
   glob('/**/*')
-    .catch((err) => assert.equal(err.code, 'EACCES'))
+    .catch(err => assert.equal(err.code, 'EACCES'))
 })
 
-test('should throw a type error when the first argument is not a string.', (assert) => {
+test('should throw a type error when the first argument is not a string.', assert => {
   assert.plan(1)
 
   glob({})
-    .catch((err) => assert.equal(err.message, 'glob pattern string required'))
+    .catch(err => assert.equal(err.message, 'glob pattern string required'))
 })
 
-test('should throw a type error when it takes no arguments.', (assert) => {
+test('should throw a type error when it takes no arguments.', assert => {
   assert.plan(1)
 
   glob()
-    .catch((err) => assert.equal(err.message, 'glob pattern string required'))
+    .catch(err => assert.equal(err.message, 'glob pattern string required'))
 })
