@@ -32,7 +32,7 @@
   "devDependencies": {
     "echint": "^2.1.0",
     "snazzy": "^6.0.0",
-    "tap": "^9.0.0"
+    "tap": "^10.0.0"
   },
   "peerDependencies": {
     "glob": "*"
