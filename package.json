@@ -35,6 +35,6 @@
     "tap": "^10.0.0"
   },
   "peerDependencies": {
-    "glob": "*"
+    "glob": "7.0.6"
   }
 }
