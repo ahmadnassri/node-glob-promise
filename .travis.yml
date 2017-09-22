@@ -1,6 +1,7 @@
 language: node_js
 
 node_js:
+ - 8
  - 7
  - 6
  - 4
@@ -25,7 +26,7 @@ deploy:
 
   on:
     branch: master
-    node: 7
+    node: 8
 
 branches:
   except:
