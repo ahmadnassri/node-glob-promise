@@ -24,15 +24,15 @@
     "url": "https://github.com/ahmadnassri/glob-promise/issues"
   },
   "scripts": {
-    "lint": "snazzy && echint",
+    "lint": "standard && echint",
     "pretest": "npm run lint",
     "test": "tap test",
     "coverage": "tap test --reporter silent --coverage"
   },
   "devDependencies": {
-    "echint": "^3.0.0",
-    "snazzy": "^6.0.0",
-    "tap": "^10.0.0"
+    "echint": "^4.0.1",
+    "standard": "^10.0.3",
+    "tap": "^10.7.2"
   },
   "peerDependencies": {
     "glob": "*"
