@@ -14,8 +14,21 @@
 ## Install
 
 ```bash
-npm install --only=production --save glob-promise
+# using yarn
+$ yarn add glob-promise
+
+# using npm
+$ npm install --only=production --save glob-promise
 ```
+
+###### NOTE: 
+
+[`glob`][glob] is set as a `peerDependency` in [`package.json`](package.json)
+
+- `npm` <= `2` will automatically install `peerDependencies` if they are not explicitly depended upon higher in the dependency tree.
+- `npm` >= 3 will no longer automatically install `peerDependencies`.
+
+You will need to manually add `glob` as a dependency to your project for `glob-promise` to work.
 
 ## API
 
