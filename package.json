@@ -10,6 +10,7 @@
   },
   "license": "ISC",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "keywords": [
     "glob",
     "promise"
@@ -36,5 +37,8 @@
   },
   "peerDependencies": {
     "glob": "*"
+  },
+  "dependencies": {
+    "@types/glob": "*"
   }
 }
