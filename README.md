@@ -1,15 +1,8 @@
-# glob-promise [![version][npm-version]][npm-url] [![License][license-image]][license-url]
+# glob-promise [![version][npm-version]][npm-url] [![License][license-image]][license-url] [![Build Status][travis-image]][travis-url] [![Downloads][npm-downloads]][npm-url] [![Coverage Status][codeclimate-coverage]][codeclimate-url]
 
 [`Promise`][Promise] version of [`glob`][glob]
 
 > Match files using the patterns the shell uses, like stars and stuff.
-
-[![Build Status][travis-image]][travis-url]
-[![Downloads][npm-downloads]][npm-url]
-[![Code Climate][codeclimate-quality]][codeclimate-url]
-[![Coverage Status][codeclimate-coverage]][codeclimate-url]
-[![Dependency Status][dependencyci-image]][dependencyci-url]
-[![Dependencies][david-image]][david-url]
 
 ## Install
 
@@ -80,9 +73,9 @@ glob('{foo,bar.baz}.txt', { nobrace: true })
 The option object will be directly passed to [glob](https://github.com/isaacs/node-glob#options).
 
 ---
-> :copyright: [ahmadnassri.com](https://www.ahmadnassri.com/)  · 
-> License: [ISC][license-url]  · 
-> Github: [@ahmadnassri](https://github.com/ahmadnassri)  · 
+> License: [ISC][license-url] &bull; 
+> Copyright: [ahmadnassri.com](https://www.ahmadnassri.com) &bull; 
+> Github: [@ahmadnassri](https://github.com/ahmadnassri) &bull; 
 > Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
 
 [license-url]: http://choosealicense.com/licenses/isc/
@@ -96,14 +89,7 @@ The option object will be directly passed to [glob](https://github.com/isaacs/no
 [npm-downloads]: https://img.shields.io/npm/dm/glob-promise.svg?style=flat-square
 
 [codeclimate-url]: https://codeclimate.com/github/ahmadnassri/glob-promise
-[codeclimate-quality]: https://img.shields.io/codeclimate/github/ahmadnassri/glob-promise.svg?style=flat-square
-[codeclimate-coverage]: https://img.shields.io/codeclimate/coverage/github/ahmadnassri/glob-promise.svg?style=flat-square
-
-[david-url]: https://david-dm.org/ahmadnassri/glob-promise
-[david-image]: https://img.shields.io/david/ahmadnassri/glob-promise.svg?style=flat-square
-
-[dependencyci-url]: https://dependencyci.com/github/ahmadnassri/glob-promise
-[dependencyci-image]: https://dependencyci.com/github/ahmadnassri/glob-promise/badge?style=flat-square
+[codeclimate-coverage]: https://api.codeclimate.com/v1/badges/0eeee939931b69446450/test_coverage?style=flat-square
 
 [glob]: https://github.com/isaacs/node-glob
 [Promise]: http://promisesaplus.com/
