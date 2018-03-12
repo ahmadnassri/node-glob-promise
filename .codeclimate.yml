@@ -1,17 +1,31 @@
-engines:
-  fixme:
-    enabled: true
+version: "2"
 
+plugins:
   duplication:
     enabled: true
     config:
       languages:
-      - javascript
+        javascript:
+          patterns:
+            - test/*.js
 
   eslint:
     enabled: true
 
-ratings:
-  paths:
-    - lib/**
-    - test/**
+  fixme:
+    enabled: true
+
+  nodesecurity:
+    enabled: true
+
+  markdownlint:
+    enabled: true
+
+  editorconfig:
+    enabled: true
+    channel: beta
+
+exclude_patterns:
+  - .nyc_output/**
+  - coverage/**
+  - node_modules/**

@@ -1,34 +1,41 @@
+if: tag IS blank
+
 language: node_js
 
-node_js:
- - 8
- - 7
- - 6
- - 4
+services: docker
 
-matrix:
-  fast_finish: true
+node_js:
+  - 9
+  - 8
+  - 6
 
 cache:
   directories:
     - node_modules
 
-after_success:
-  - npm install --no-save --only=production codeclimate-test-reporter semantic-release
+stages:
+  - cache
+  - test
+  - coverage
+  - release
 
-before_deploy:
-  - npm run coverage -- --coverage-report=text-lcov | codeclimate-test-reporter
+before_install: export PATH=$PATH:$TRAVIS_BUILD_DIR/.scripts
 
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: semantic-release pre && npm publish && semantic-release post || true
+jobs:
+  include:
+    - stage: cache
+      node: 9
+      script: codeclimate engines:install
 
-  on:
-    branch: master
-    node: 8
+    - stage: coverage
+      node: 9
+      before_script: test-reporter before-build
+      script: npm run test:tap
+      after_script: test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
-branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
-    - /^greenkeeper\/.+/
+    - stage: release
+      node: 9
+      install: npm install --production
+      script: npx semantic-release
+      if: branch = master
+      if: type IN (push)
