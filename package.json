@@ -25,15 +25,14 @@
     "url": "https://github.com/ahmadnassri/glob-promise/issues"
   },
   "scripts": {
-    "lint": "standard && echint",
-    "pretest": "npm run lint",
-    "test": "tap test",
-    "coverage": "tap test --reporter silent --coverage"
+    "pretest": "npm run test:codeclimate",
+    "test": "npm run test:tap",
+    "test:codeclimate": ".scripts/codeclimate analyze",
+    "test:tap": "tap test --100 --coverage-report=lcov --no-browser",
+    "coverage": "opener coverage/lcov-report/index.html"
   },
   "devDependencies": {
-    "echint": "^4.0.1",
-    "standard": "^10.0.3",
-    "tap": "^10.7.2"
+    "tap": "^11.1.2"
   },
   "peerDependencies": {
     "glob": "*"

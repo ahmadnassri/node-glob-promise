@@ -1,0 +1,8 @@
+collectors:
+  - type: js-npm
+    path: /
+    actors:
+    - type: js-npm
+      versions: "Y.Y.Y"
+      settings:
+        github_labels: [dependencies]
