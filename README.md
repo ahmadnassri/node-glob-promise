@@ -11,7 +11,7 @@
 $ yarn add glob-promise
 
 # using npm
-$ npm install --only=production --save glob-promise
+$ npm install --production --save glob-promise
 ```
 
 ###### NOTE: 
