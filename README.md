@@ -20,8 +20,8 @@ $ npm install glob-promise glob
 
 [`glob`](https://github.com/isaacs/node-glob) is set as a `peerDependency` in [`package.json`](package.json)
 
--   `npm` &lt;= `2` will automatically install `peerDependencies` if they are not explicitly depended upon higher in the dependency tree.
--   `npm` &gt;= 3 will no longer automatically install `peerDependencies`.
+  - `npm` \<= `2` will automatically install `peerDependencies` if they are not explicitly depended upon higher in the dependency tree.
+  - `npm` \>= 3 will no longer automatically install `peerDependencies`.
 
 You will need to manually add `glob` as a dependency to your project for `glob-promise` to work.
 
