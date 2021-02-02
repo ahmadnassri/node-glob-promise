@@ -1,7 +1,5 @@
-'use strict'
-
 const glob = require('../lib')
-const test = require('tap').test
+const { test } = require('tap')
 
 test('exports', assert => {
   assert.plan(6)
@@ -20,7 +18,7 @@ test('successfully parse', assert => {
   glob('test/**')
     .then(files => {
       assert.type(files, Array)
-      assert.same(files, [ 'test', 'test/index.js' ])
+      assert.same(files, ['test', 'test/index.js'])
     })
 })
 
@@ -28,7 +26,7 @@ test('be rejected when globbing fails', assert => {
   assert.plan(1)
 
   glob('/**/*', { silent: true })
-    .catch(err => assert.equal(err.code, 'EACCES'))
+    .catch(err => assert.true(err instanceof Error))
 })
 
 test('throw a type error when the first argument is not a string.', assert => {

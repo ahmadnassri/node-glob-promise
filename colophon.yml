@@ -1,0 +1,8 @@
+version: 2.0
+
+id: glob-promise
+
+about:
+  title: Promise version of glob
+  description: Match files using the patterns the shell uses, like stars and stuff.
+  repository: ahmadnassri/node-glob-promise

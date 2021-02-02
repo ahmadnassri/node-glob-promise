@@ -1,0 +1,56 @@
+version: '3.8'
+
+x-node: &node
+  tty: true
+  volumes:
+    - type: bind
+      source: .
+      target: /app
+  working_dir: /app
+  command: npm run test
+
+services:
+  # ---- super-linter ---- #
+  lint:
+    image: github/super-linter:v3
+    volumes:
+      - ./:/tmp/lint
+    environment:
+      RUN_LOCAL: 'true'
+      LOG_LEVEL: 'ERROR'
+      MULTI_STATUS: 'false'
+
+  # ---- readme generator ---- #
+  readme:
+    image: pandoc/core
+    volumes:
+      - ./:/data
+    command: >-
+      --metadata-file=colophon.yml
+      --template=docs/README.template
+      --output=README.md
+      --from=gfm
+      --to=gfm
+      --fail-if-warnings
+      --wrap=preserve
+      docs/README.md
+
+  test:
+    <<: *node
+    image: node:alpine
+    depends_on:
+      - node12
+      - node14
+      - node15
+
+  node12:
+    <<: *node
+    image: node:12-alpine
+
+  node14:
+    <<: *node
+    image: node:14-alpine
+
+  node15:
+    <<: *node
+    image: node:15-alpine

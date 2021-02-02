@@ -16,7 +16,7 @@
     "promise"
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=12"
   },
   "files": [
     "lib"
@@ -25,19 +25,17 @@
     "url": "https://github.com/ahmadnassri/glob-promise/issues"
   },
   "scripts": {
-    "pretest": "npm run test:codeclimate",
-    "test": "npm run test:tap",
-    "test:codeclimate": ".scripts/codeclimate analyze",
-    "test:tap": "tap test --100 --coverage-report=lcov --no-browser",
-    "coverage": "opener coverage/lcov-report/index.html"
+    "test": "tap test --no-coverage",
+    "test:watch": "tap test --watch",
+    "test:ci": "tap test --100 --color --coverage-report=lcov --no-browser"
   },
   "devDependencies": {
-    "tap": "^12.0.0"
+    "tap": "^14.11.0"
   },
   "peerDependencies": {
-    "glob": "*"
+    "glob": "^7.1.6"
   },
   "dependencies": {
-    "@types/glob": "*"
+    "@types/glob": "^7.1.3"
   }
 }

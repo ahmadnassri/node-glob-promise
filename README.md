@@ -1,25 +1,27 @@
-# glob-promise [![version][npm-version]][npm-url] [![License][license-image]][license-url] [![Build Status][travis-image]][travis-url] [![Downloads][npm-downloads]][npm-url] [![Coverage Status][codeclimate-coverage]][codeclimate-url]
+# Promise version of glob
 
-[`Promise`][Promise] version of [`glob`][glob]
+Match files using the patterns the shell uses, like stars and stuff.
 
-> Match files using the patterns the shell uses, like stars and stuff.
+[![license][license-img]][license-url]
+[![release][release-img]][release-url]
+[![super linter][super-linter-img]][super-linter-url]
+[![test][test-img]][test-url]
+[![semantic][semantic-img]][semantic-url]
+
+> ***Note**: This is just a [`Promise`](http://promisesaplus.com/) wrapped version of [`glob`](https://github.com/isaacs/node-glob)*
 
 ## Install
 
-```bash
-# using yarn
-$ yarn add glob-promise
-
-# using npm
-$ npm install --production --save glob-promise
+``` bash
+$ npm install glob-promise glob
 ```
 
-###### NOTE: 
+###### NOTE:
 
-[`glob`][glob] is set as a `peerDependency` in [`package.json`](package.json)
+[`glob`](https://github.com/isaacs/node-glob) is set as a `peerDependency` in [`package.json`](package.json)
 
-- `npm` <= `2` will automatically install `peerDependencies` if they are not explicitly depended upon higher in the dependency tree.
-- `npm` >= 3 will no longer automatically install `peerDependencies`.
+-   `npm` &lt;= `2` will automatically install `peerDependencies` if they are not explicitly depended upon higher in the dependency tree.
+-   `npm` &gt;= 3 will no longer automatically install `peerDependencies`.
 
 You will need to manually add `glob` as a dependency to your project for `glob-promise` to work.
 
@@ -31,15 +33,15 @@ Alias for `glob.promise`
 
 ### `glob.promise(pattern [, options])`
 
-_pattern_: `String` (glob pattern)
-_options_: `Object` or `String`
-Return: `Object` ([Promise])
+*pattern*: `String` (glob pattern)
+*options*: `Object` or `String`
+Return: `Object` ([Promise](http://promisesaplus.com/))
 
-When it finishes, it will be [_fulfilled_](http://promisesaplus.com/#point-26) with an `Array` of filenames as its first argument.
+When it finishes, it will be [*fulfilled*](http://promisesaplus.com/#point-26) with an `Array` of filenames as its first argument.
 
-When it fails to read the files, it will be [_rejected_](http://promisesaplus.com/#point-30) with an error as its first argument.
+When it fails to read the files, it will be [*rejected*](http://promisesaplus.com/#point-30) with an error as its first argument.
 
-```js
+``` js
 glob('**/*')
   .then(function(contents) {
     contents; //=> ['lorem', 'ipsum', 'dolor']
@@ -67,29 +69,25 @@ glob('{foo,bar.baz}.txt', { nobrace: true })
 
 > see [`Glob`](https://github.com/isaacs/node-glob#class-globglob)
 
-
 #### options
 
 The option object will be directly passed to [glob](https://github.com/isaacs/node-glob#options).
 
----
-> License: [ISC][license-url] &bull; 
-> Copyright: [ahmadnassri.com](https://www.ahmadnassri.com) &bull; 
-> Github: [@ahmadnassri](https://github.com/ahmadnassri) &bull; 
-> Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
+----
+> Author: [Ahmad Nassri](https://www.ahmadnassri.com/) &bull;
+> Twitter: [@AhmadNassri](https://twitter.com/AhmadNassri)
 
-[license-url]: http://choosealicense.com/licenses/isc/
-[license-image]: https://img.shields.io/github/license/ahmadnassri/glob-promise.svg?style=flat-square
+[license-url]: LICENSE
+[license-img]: https://badgen.net/github/license/ahmadnassri/node-glob-promise
 
-[travis-url]: https://travis-ci.org/ahmadnassri/glob-promise
-[travis-image]: https://img.shields.io/travis/ahmadnassri/glob-promise.svg?style=flat-square
+[release-url]: https://github.com/ahmadnassri/node-glob-promise/releases
+[release-img]: https://badgen.net/github/release/ahmadnassri/node-glob-promise
 
-[npm-url]: https://www.npmjs.com/package/glob-promise
-[npm-version]: https://img.shields.io/npm/v/glob-promise.svg?style=flat-square
-[npm-downloads]: https://img.shields.io/npm/dm/glob-promise.svg?style=flat-square
+[super-linter-url]: https://github.com/ahmadnassri/node-glob-promise/actions?query=workflow%3Asuper-linter
+[super-linter-img]: https://github.com/ahmadnassri/node-glob-promise/workflows/super-linter/badge.svg
 
-[codeclimate-url]: https://codeclimate.com/github/ahmadnassri/glob-promise
-[codeclimate-coverage]: https://api.codeclimate.com/v1/badges/0eeee939931b69446450/test_coverage?style=flat-square
+[test-url]: https://github.com/ahmadnassri/node-glob-promise/actions?query=workflow%3Atest
+[test-img]: https://github.com/ahmadnassri/node-glob-promise/workflows/test/badge.svg
 
-[glob]: https://github.com/isaacs/node-glob
-[Promise]: http://promisesaplus.com/
+[semantic-url]: https://github.com/ahmadnassri/node-glob-promise/actions?query=workflow%3Arelease
+[semantic-img]: https://badgen.net/badge/📦/semantically%20released/blue
