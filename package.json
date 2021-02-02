@@ -3,10 +3,10 @@
   "name": "glob-promise",
   "description": "Promise version of glob",
   "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com/)",
-  "homepage": "https://github.com/ahmadnassri/glob-promise",
+  "homepage": "https://github.com/ahmadnassri/node-glob-promise",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ahmadnassri/glob-promise.git"
+    "url": "https://github.com/ahmadnassri/node-glob-promise.git"
   },
   "license": "ISC",
   "main": "lib/index.js",
@@ -22,7 +22,7 @@
     "lib"
   ],
   "bugs": {
-    "url": "https://github.com/ahmadnassri/glob-promise/issues"
+    "url": "https://github.com/ahmadnassri/node-glob-promise/issues"
   },
   "scripts": {
     "test": "tap test --no-coverage",
