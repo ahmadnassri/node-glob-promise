@@ -29,7 +29,7 @@ services:
       --metadata-file=colophon.yml
       --template=docs/README.template
       --output=README.md
-      --from=gfm
+      --from=markdown_github+yaml_metadata_block
       --to=gfm
       --fail-if-warnings
       --wrap=preserve
