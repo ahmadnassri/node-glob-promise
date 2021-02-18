@@ -4,6 +4,8 @@ on: [push, pull_request]
 
 jobs:
   commit-lint:
+    timeout-minutes: 5
+
     runs-on: ubuntu-latest
 
     steps:
