@@ -127,7 +127,7 @@ MD039: true
 MD040: true
 
 # First line in file should be a top level heading
-MD041: true
+MD041: false
 
 # No empty links
 MD042: true
