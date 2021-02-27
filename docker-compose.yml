@@ -33,6 +33,7 @@ services:
       --to=gfm
       --fail-if-warnings
       --wrap=preserve
+      --reference-links
       docs/README.md
 
   test:
