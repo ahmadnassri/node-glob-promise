@@ -12,7 +12,7 @@ jobs:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
 
     steps:
-      - run: echo ::warning ::skipped duplicate run
+      - run: echo ::info ::de-duplicate ran successfully
 
   lint:
     timeout-minutes: 5
@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: github/super-linter@v3
+      - uses: github/super-linter@v3.15.1
         env:
           LOG_LEVEL: ERROR
           VALIDATE_ALL_CODEBASE: false
