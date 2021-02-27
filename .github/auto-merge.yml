@@ -1,10 +1,10 @@
 - match:
     dependency_type: development
-    update_type: semver:minor # includes patch updates!
+    update_type: semver:minor
 
 - match:
     dependency_type: production
-    update_type: security:minor # includes patch updates!
+    update_type: security:minor
 
 - match:
     dependency_type: production
