@@ -29,15 +29,29 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm audit --audit-level=critical
 
-  test:
+  strategy:
     timeout-minutes: 5
 
-    needs: audit
+    needs: deduplicate
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.parse.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - id: parse
+        run: echo "::set-output name=matrix::$(jq -c . < .github/matrix.json)"
+
+  test:
+    needs: [ strategy, audit ]
+
+    timeout-minutes: 5
+
 
     strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [12, 14, 15]
+      matrix: ${{ fromJSON(needs.strategy.outputs.matrix) }}
 
     runs-on: ${{ matrix.os }}
 
