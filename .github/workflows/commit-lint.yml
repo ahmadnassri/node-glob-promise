@@ -1,3 +1,7 @@
+# ----------------------------------------------------------- #
+# Note: this file originates in ahmadnassri/template-template #
+# ----------------------------------------------------------- #
+
 name: commit-lint
 
 on: [push, pull_request]
