@@ -1,3 +1,7 @@
+# ----------------------------------------------------------- #
+# Note: this file originates in ahmadnassri/template-template #
+# ----------------------------------------------------------- #
+
 - match:
     dependency_type: development
     update_type: semver:minor
