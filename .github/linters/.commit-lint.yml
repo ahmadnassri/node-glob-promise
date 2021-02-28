@@ -1,3 +1,7 @@
+# ----------------------------------------------------------- #
+# Note: this file originates in ahmadnassri/template-template #
+# ----------------------------------------------------------- #
+
 extends:
   - "@commitlint/config-conventional"
 rules:
