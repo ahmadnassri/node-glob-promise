@@ -1,3 +1,7 @@
+# ----------------------------------------------------------- #
+# Note: this file originates in ahmadnassri/template-template #
+# ----------------------------------------------------------- #
+
 name: super-linter
 
 on: [ push, pull_request ]
