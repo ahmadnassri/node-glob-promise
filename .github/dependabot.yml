@@ -1,3 +1,7 @@
+# ----------------------------------------------------------- #
+# Note: this file originates in ahmadnassri/template-template #
+# ----------------------------------------------------------- #
+
 version: 2
 updates:
   - package-ecosystem: gitsubmodule
