@@ -49,7 +49,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: ahmadnassri/action-github-registry-npm-proxy@v1
+      - uses: ahmadnassri/action-github-registry-npm-proxy@v2
         with:
           github-token: ${{ secrets.GH_TOKEN }}
           owner: ${{ github.repository_owner }}
