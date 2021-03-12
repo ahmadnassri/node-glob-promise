@@ -52,7 +52,7 @@ jobs:
       - uses: ahmadnassri/action-github-registry-npm-proxy@v2
         with:
           token: ${{ secrets.GH_TOKEN }}
-          owner: ${{ github.repository_owner }}
+          scope: ${{ github.repository_owner }}
 
       - name: publish to github registry
         run: |
