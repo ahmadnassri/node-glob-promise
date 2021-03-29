@@ -1,0 +1,8 @@
+esm: false
+ts: false
+jsx: false
+flow: false
+coverage: true
+browser: false
+color: true
+coverage-report: html
