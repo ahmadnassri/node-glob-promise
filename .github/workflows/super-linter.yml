@@ -16,7 +16,7 @@ jobs:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
 
     steps:
-      - run: echo ::info ::de-duplicate ran successfully
+      - run: echo ::info ::duplicate check ran successfully
 
   lint:
     timeout-minutes: 5
