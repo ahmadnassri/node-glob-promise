@@ -12,7 +12,7 @@ on:
 
 jobs:
   release:
-    timeout-minutes: 5
+    timeout-minutes: 20
 
     runs-on: ubuntu-latest
 
@@ -22,6 +22,10 @@ jobs:
 
     steps:
       - uses: ahmadnassri/action-workflow-run-wait@v1
+        with:
+          delay: 10000
+          timeout: 900000
+          ignore-cancelled: true
 
       - uses: actions/checkout@v2
         with:
