@@ -30,7 +30,7 @@
     "test:ci": "tap test --100 --color --coverage-report=lcov --no-browser"
   },
   "devDependencies": {
-    "tap": "^14.11.0"
+    "tap": "^15.0.1"
   },
   "peerDependencies": {
     "glob": "^7.1.6"
