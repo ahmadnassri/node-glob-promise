@@ -1,6 +1,6 @@
-# ----------------------------------------------------------- #
-# Note: this file originates in ahmadnassri/template-template #
-# ----------------------------------------------------------- #
+# ------------------------------------------------------------- #
+# Note: this file is automatically managed in template-template #
+# ------------------------------------------------------------- #
 
 name: super-linter
 
@@ -12,13 +12,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # run on external PRs, but not on our internal PRs
+    # run once
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
 
     steps:
       - run: echo ::info ::duplicate check ran successfully
 
-  lint:
+  super-linter:
     timeout-minutes: 5
 
     needs: deduplicate
@@ -27,8 +27,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - uses: github/super-linter@v3.15.5
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           LOG_LEVEL: ERROR
           VALIDATE_ALL_CODEBASE: false
-          GITHUB_TOKEN: ${{ github.token }}
+          VALIDATE_SHELL_SHFMT: false
+          VALIDATE_JSCPD: false
+          VALIDATE_TERRAFORM_TERRASCAN: false
+          FILTER_REGEX_EXCLUDE: '.*test/fixtures/*'
