@@ -1,16 +1,18 @@
-# ----------------------------------------------------------- #
-# Note: this file originates in ahmadnassri/template-template #
-# ----------------------------------------------------------- #
+# ------------------------------------------------------------- #
+# Note: this file is automatically managed in template-template #
+# ------------------------------------------------------------- #
 
 name: auto-merge
 
-on: pull_request
+on: pull_request_target
 
 jobs:
   auto-merge:
     timeout-minutes: 5
 
     runs-on: ubuntu-latest
+
+    if: github.actor == 'dependabot[bot]'
 
     steps:
       - uses: actions/checkout@v2
