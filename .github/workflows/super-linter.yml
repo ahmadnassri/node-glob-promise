@@ -30,7 +30,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: github/super-linter@v3.15.5
+      - uses: github/super-linter@v3.16.1
         env:
           GITHUB_TOKEN: ${{ github.token }}
           LOG_LEVEL: ERROR
