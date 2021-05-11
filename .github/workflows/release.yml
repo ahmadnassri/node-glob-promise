@@ -21,7 +21,7 @@ jobs:
       version: ${{ steps.release.outputs.release-version }}
 
     steps:
-      - uses: ahmadnassri/action-workflow-run-wait@v1
+      - uses: ahmadnassri/action-workflow-run-wait@v1.4.3
         with:
           delay: 10000
           timeout: 900000
