@@ -27,6 +27,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: ahmadnassri/action-commit-lint@v1
+      - uses: ahmadnassri/action-commit-lint@v1.3.3
         with:
           config: .github/linters/.commit-lint.yml
