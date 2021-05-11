@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - uses: actions/setup-node@v2.1.5
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - run: npm audit --audit-level=critical
 
   strategy:
@@ -44,7 +44,7 @@ jobs:
       matrix: ${{ steps.parse.outputs.matrix }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - id: parse
         run: echo "::set-output name=matrix::$(jq -c . < .github/matrix.json)"
 
@@ -65,11 +65,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
         with:
           submodules: true
 
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.5
         with:
           path: ~/.npm
           key: ${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
