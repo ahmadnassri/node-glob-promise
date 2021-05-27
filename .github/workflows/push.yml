@@ -1,0 +1,182 @@
+# ------------------------------------------------------------- #
+# Note: this file is automatically managed in template-node-lib #
+# ------------------------------------------------------------- #
+
+on: push
+
+name: push
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+
+    outputs:
+      repository: ${{ steps.metadata.outputs.repository }}
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - uses: ahmadnassri/action-metadata@v1
+        id: metadata
+
+  commit-lint:
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ahmadnassri/action-commit-lint@v1
+        with:
+          config: .github/linters/.commit-lint.yml
+
+  super-linter:
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: github/super-linter@v4.0.2
+        env:
+          LOG_LEVEL: ERROR
+          VALIDATE_ALL_CODEBASE: false
+          FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
+          GITHUB_TOKEN: ${{ github.token }}
+
+  npm-audit:
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2.1.5
+
+      - run: npm audit --audit-level=critical
+
+  test-strategy:
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.parse.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - id: parse
+        run: echo "::set-output name=matrix::$(jq -c . < .github/matrix.json)"
+
+  test-run:
+    needs:
+      - commit-lint
+      - super-linter
+      - npm-audit
+      - test-strategy
+
+    timeout-minutes: 5
+
+    name: ${{ matrix.name || format('node v{0} @ {1}', matrix.node-version, matrix.os) || 'test-step' }}
+
+    strategy:
+      matrix: ${{ fromJSON(needs.test-strategy.outputs.matrix) }}
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - uses: actions/cache@v2.1.4
+        with:
+          path: ~/.npm
+          key: ${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+
+      - run: npm ci
+      - run: npm run test:ci
+
+  release:
+    needs: test-run
+
+    # only runs on main branch
+    if: ${{ github.ref == 'refs/heads/master' }}
+
+    timeout-minutes: 20
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      published: ${{ steps.release.outputs.published }}
+      version: ${{ steps.release.outputs.release-version }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - id: release
+        uses: ahmadnassri/action-semantic-release@v1
+        with:
+          config: ${{ github.workspace }}/.semantic.json
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  mirror:
+    needs: release
+
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    if: needs.release.outputs.published == 'true'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - uses: ahmadnassri/action-github-registry-npm-proxy@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          scope: ${{ github.repository_owner }}
+
+      - name: publish to github registry
+        run: |
+          jq '.name = "@'${GITHUB_REPOSITORY/node-/}'"' package.json > /tmp/package.json; mv /tmp/package.json .
+          npm version --no-git-tag-version v${{ needs.release.outputs.version }}
+          npm publish
+
+  template-sync:
+    needs:
+      - metadata
+      - release
+
+    timeout-minutes: 20
+
+    # only runs on main branch and only for the template
+    if: ${{ github.ref == 'refs/heads/master' &&
+        fromJSON(needs.metadata.outputs.repository).is_template }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ahmadnassri/action-workflow-queue@v1
+
+      - uses: actions/checkout@v2
+
+      - uses: ahmadnassri/action-template-repository-sync@v1
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          dry-run: true
