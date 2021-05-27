@@ -8,6 +8,10 @@
     "type": "git",
     "url": "https://github.com/ahmadnassri/node-glob-promise.git"
   },
+  "funding": {
+    "type" : "individual",
+    "url" : "https://github.com/sponsors/ahmadnassri"
+  },
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
