@@ -8,13 +8,14 @@
     "type": "git",
     "url": "https://github.com/ahmadnassri/node-glob-promise.git"
   },
+  "bugs": {
+    "url": "https://github.com/ahmadnassri/node-glob-promise/issues"
+  },
   "funding": {
-    "type" : "individual",
-    "url" : "https://github.com/sponsors/ahmadnassri"
+    "type": "individual",
+    "url": "https://github.com/sponsors/ahmadnassri"
   },
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "keywords": [
     "glob",
     "promise"
@@ -25,16 +26,16 @@
   "files": [
     "lib"
   ],
-  "bugs": {
-    "url": "https://github.com/ahmadnassri/node-glob-promise/issues"
-  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "tap test --no-coverage",
     "test:watch": "tap test --watch",
-    "test:ci": "tap test --100 --color --coverage-report=lcov --no-browser"
+    "test:ci": "tap test --100",
+    "test:report": "opener coverage/lcov-report/index.html"
   },
   "devDependencies": {
-    "tap": "^14.11.0"
+    "tap": "^15.0.10"
   },
   "peerDependencies": {
     "glob": "^7.1.6"

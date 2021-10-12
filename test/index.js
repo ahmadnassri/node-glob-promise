@@ -26,7 +26,7 @@ test('be rejected when globbing fails', assert => {
   assert.plan(1)
 
   glob('/**/*', { silent: true })
-    .catch(err => assert.true(err instanceof Error))
+    .catch(err => assert.ok(err instanceof Error))
 })
 
 test('throw a type error when the first argument is not a string.', assert => {
