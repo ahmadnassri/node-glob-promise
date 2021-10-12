@@ -48,6 +48,5 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
       - uses: ahmadnassri/action-workflow-queue@v1.1
       - uses: ahmadnassri/action-template-repository-sync@v1.6.0
-      - uses: ahmadnassri/action-workflow-queue@v1.1
         with:
           github-token: ${{ secrets.GH_TOKEN }}

@@ -2,7 +2,9 @@
 # Note: this file is automatically managed in template-node-lib #
 # ------------------------------------------------------------- #
 
-on: push
+on:
+  - push
+  - workflow_dispatch
 
 name: push
 
@@ -41,7 +43,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: github/super-linter@v4.0.2
+      - uses: github/super-linter/slim@v4
         env:
           LOG_LEVEL: ERROR
           VALIDATE_ALL_CODEBASE: false
@@ -61,6 +63,11 @@ jobs:
       - run: npm audit --audit-level=critical
 
   test-strategy:
+    needs:
+      - commit-lint
+      - super-linter
+      - npm-audit
+
     timeout-minutes: 5
 
     runs-on: ubuntu-latest
@@ -74,11 +81,7 @@ jobs:
         run: echo "::set-output name=matrix::$(jq -c . < .github/matrix.json)"
 
   test-run:
-    needs:
-      - commit-lint
-      - super-linter
-      - npm-audit
-      - test-strategy
+    needs: test-strategy
 
     timeout-minutes: 5
 
@@ -98,7 +101,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/cache@v2.1.6
+      - uses: actions/cache@v2.1.5
         with:
           path: ~/.npm
           key: ${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
@@ -140,7 +143,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    if: needs.release.outputs.published == 'true'
+    if: ${{ needs.release.outputs.published == 'true' }}
 
     steps:
       - uses: actions/checkout@v2
@@ -154,29 +157,30 @@ jobs:
 
       - name: publish to github registry
         run: |
-          jq '.name = "@'${GITHUB_REPOSITORY/node-/}'"' package.json > /tmp/package.json; mv /tmp/package.json .
+          jq '.name = "@'"${GITHUB_REPOSITORY/node-/}"'"' package.json > /tmp/package.json; mv /tmp/package.json .
           npm version --no-git-tag-version v${{ needs.release.outputs.version }}
           npm publish
 
-  template-sync:
-    needs:
-      - metadata
-      - release
 
+  template-sync:
     timeout-minutes: 20
 
+    needs:
+      - metadata
+      - test-run
+      - commit-lint
+      - super-linter
+
     # only runs on main branch and only for the template
-    if: ${{ github.ref == 'refs/heads/master' &&
-        fromJSON(needs.metadata.outputs.repository).is_template }}
+    if: ${{ github.ref == 'refs/heads/master' && fromJSON(needs.metadata.outputs.repository).is_template }}
 
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ahmadnassri/action-workflow-queue@v1
+      - uses: ahmadnassri/action-workflow-queue@v1.1
 
       - uses: actions/checkout@v2
 
-      - uses: ahmadnassri/action-template-repository-sync@v1
+      - uses: ahmadnassri/action-template-repository-sync@v1.6.0
         with:
           github-token: ${{ secrets.GH_TOKEN }}
-          dry-run: true

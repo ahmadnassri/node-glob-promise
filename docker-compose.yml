@@ -16,30 +16,25 @@ x-node: &node
 services:
   # ---- super-linter ---- #
   lint:
-    image: github/super-linter:v3
+    image: github/super-linter:slim-v4
     volumes:
-      - ./:/tmp/lint
+      - ./:/github/workspace
     environment:
       RUN_LOCAL: 'true'
       LOG_LEVEL: 'ERROR'
       MULTI_STATUS: 'false'
+      IGNORE_GITIGNORED_FILES: 'true'
+      DEFAULT_WORKSPACE: /github/workspace
+      FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
 
   # ---- readme generator ---- #
   readme:
-    image: pandoc/core:2.11.4
+    image: pandoc/core:2.13
     volumes:
       - ./:/data
-    command: >-
-      --metadata-file=colophon.yml
-      --template=docs/README.template
-      --output=README.md
-      --from=gfm
-      --to=gfm
-      --fail-if-warnings
-      --wrap=preserve
-      --reference-links
-      docs/README.md
+    command: --defaults=.pandoc.yml
 
+  # ---- test runner ---- #
   test:
     <<: *node
     image: node:alpine
