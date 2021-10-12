@@ -46,7 +46,9 @@ jobs:
       - uses: github/super-linter/slim@v4
         env:
           LOG_LEVEL: ERROR
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_JSCPD: 'false'
+          VALIDATE_ALL_CODEBASE: 'false'
+          IGNORE_GITIGNORED_FILES: 'true'
           FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -160,7 +162,6 @@ jobs:
           jq '.name = "@'"${GITHUB_REPOSITORY/node-/}"'"' package.json > /tmp/package.json; mv /tmp/package.json .
           npm version --no-git-tag-version v${{ needs.release.outputs.version }}
           npm publish
-
 
   template-sync:
     timeout-minutes: 20

@@ -23,6 +23,7 @@ services:
       RUN_LOCAL: 'true'
       LOG_LEVEL: 'ERROR'
       MULTI_STATUS: 'false'
+      VALIDATE_JSCPD: 'false'
       IGNORE_GITIGNORED_FILES: 'true'
       DEFAULT_WORKSPACE: /github/workspace
       FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
