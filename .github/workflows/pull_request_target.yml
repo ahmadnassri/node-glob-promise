@@ -6,6 +6,10 @@ on: pull_request_target
 
 name: pull_request_target
 
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   metadata:
     runs-on: ubuntu-latest
@@ -27,10 +31,33 @@ jobs:
     # only run for dependabot PRs
     if: ${{ github.actor == 'dependabot[bot]' }}
 
+    env:
+      PR_URL: ${{github.event.pull_request.html_url}}
+      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
     steps:
-      - uses: ahmadnassri/action-dependabot-auto-merge@v2.4
+      - id: dependabot
+        uses: dependabot/fetch-metadata@v1.1.1
         with:
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: auto merge conditions
+        id: auto-merge
+        if: |
+          (
+            steps.dependabot.outputs.update-type == 'version-update:semver-patch' &&
+            contains('direct:production,indirect:production', steps.dependabot.outputs.dependency-type)
+          ) || (
+            steps.dependabot.outputs.update-type == 'version-update:semver-minor' &&
+            contains('direct:development,indirect:development', steps.dependabot.outputs.dependency-type)
+          )
+        run: echo "::notice ::auto-merge conditions satisfied"
+
+      - name: auto approve pr
+        if: ${{ steps.auto-merge.conclusion == 'success' }}
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --rebase "$PR_URL"
 
   template-sync:
     needs: metadata
