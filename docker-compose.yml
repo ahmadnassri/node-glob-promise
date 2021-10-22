@@ -1,6 +1,6 @@
-# ----------------------------------------------------------- #
-# Note: this file originates in ahmadnassri/template-node-lib #
-# ----------------------------------------------------------- #
+# ----------------------------------------------- #
+# Note: this file originates in template-node-lib #
+# ----------------------------------------------- #
 
 version: '3.8'
 
@@ -16,14 +16,13 @@ x-node: &node
 services:
   # ---- super-linter ---- #
   lint:
-    image: github/super-linter:slim-v4
+    image: github/super-linter:v3
     volumes:
       - ./:/github/workspace
     environment:
       RUN_LOCAL: 'true'
       LOG_LEVEL: 'ERROR'
       MULTI_STATUS: 'false'
-      VALIDATE_JSCPD: 'false'
       IGNORE_GITIGNORED_FILES: 'true'
       DEFAULT_WORKSPACE: /github/workspace
       FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
@@ -35,7 +34,6 @@ services:
       - ./:/data
     command: --defaults=.pandoc.yml
 
-  # ---- test runner ---- #
   test:
     <<: *node
     image: node:alpine
