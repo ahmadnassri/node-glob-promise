@@ -70,11 +70,6 @@ jobs:
       - run: npm audit --audit-level=critical
 
   test-strategy:
-    needs:
-      - commit-lint
-      - super-linter
-      - npm-audit
-
     timeout-minutes: 5
 
     runs-on: ubuntu-latest
