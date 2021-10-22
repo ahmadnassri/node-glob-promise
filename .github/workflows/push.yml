@@ -83,7 +83,11 @@ jobs:
         run: echo "::set-output name=matrix::$(jq -c . < .github/matrix.json)"
 
   test-run:
-    needs: test-strategy
+    needs:
+      - commit-lint
+      - super-linter
+      - npm-audit
+      - test-strategy
 
     timeout-minutes: 5
 
