@@ -18,7 +18,7 @@ jobs:
       repository: ${{ steps.metadata.outputs.repository }}
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v2.4.0
 
       - uses: ahmadnassri/action-metadata@v1
         id: metadata
@@ -70,7 +70,7 @@ jobs:
     if: ${{ fromJSON(needs.metadata.outputs.repository).is_template }}
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v2.4.0
         with:
           ref: ${{ github.event.pull_request.head.ref }}
       - uses: ahmadnassri/action-workflow-queue@v1.1
