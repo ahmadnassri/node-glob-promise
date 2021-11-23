@@ -107,7 +107,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/cache@v2.1.6
+      - uses: actions/cache@v2.1.7
         with:
           path: ~/.npm
           key: ${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
@@ -187,7 +187,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/cache@v2.1.6
+      - uses: actions/cache@v2.1.7
         with:
           path: /tmp/.buildx-cache
           key: buildx-${{ github.sha }}
