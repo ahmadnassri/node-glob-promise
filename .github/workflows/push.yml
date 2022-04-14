@@ -160,7 +160,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: ahmadnassri/action-github-registry-npm-proxy@v2
+      - uses: ahmadnassri/action-github-registry-npm-proxy@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
           scope: ${{ github.repository_owner }}
