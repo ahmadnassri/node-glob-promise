@@ -17,7 +17,7 @@ jobs:
       dockerfile: ${{ steps.dockerfile.outputs.exists }}
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
 
       - id: metadata
         uses: ahmadnassri/action-metadata@v1
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
 
       - uses: ahmadnassri/action-commit-lint@v1
         with:
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
         with:
           fetch-depth: 0
 
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
 
       - uses: actions/setup-node@v2.4.1
 
@@ -78,7 +78,7 @@ jobs:
       matrix: ${{ steps.parse.outputs.matrix }}
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
       - id: parse
         run: echo "::set-output name=matrix::$(jq -c . < .github/matrix.json)"
 
@@ -103,7 +103,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
         with:
           submodules: true
 
@@ -134,7 +134,7 @@ jobs:
       version-minor: ${{ steps.release.outputs.release-version-minor }}
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
         with:
           submodules: true
 
@@ -156,7 +156,7 @@ jobs:
     if: ${{ needs.release.outputs.published == 'true' }}
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
         with:
           submodules: true
 
@@ -183,7 +183,7 @@ jobs:
     if: ${{ needs.metadata.outputs.dockerfile == 'yes' }}
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
         with:
           submodules: true
 
@@ -252,7 +252,7 @@ jobs:
     steps:
       - uses: ahmadnassri/action-workflow-queue@v1.1
 
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3.0.1
 
       - uses: ahmadnassri/action-template-repository-sync@v1.6.0
         with:
