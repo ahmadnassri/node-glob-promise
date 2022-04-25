@@ -35,7 +35,7 @@
     "test:report": "opener coverage/lcov-report/index.html"
   },
   "devDependencies": {
-    "tap": "^15.0.10"
+    "tap": "^16.1.0"
   },
   "peerDependencies": {
     "glob": "^7.1.6"
