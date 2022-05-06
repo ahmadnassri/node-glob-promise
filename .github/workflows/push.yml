@@ -214,7 +214,7 @@ jobs:
           echo "::set-output name=name::${{ github.repository_owner }}/$(basename "${GITHUB_REPOSITORY/node-//}")"
 
       # publish
-      - uses: docker/build-push-action@v2
+      - uses: docker/build-push-action@v3
         with:
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
