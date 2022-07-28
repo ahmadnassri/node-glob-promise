@@ -4,8 +4,6 @@ $about.description$
 
 [![license][license-img]][license-url]
 [![release][release-img]][release-url]
-[![super linter][super-linter-img]][super-linter-url]
-[![test][test-img]][test-url]
 [![semantic][semantic-img]][semantic-url]
 
 $body$
