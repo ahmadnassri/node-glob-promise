@@ -33,12 +33,12 @@ test('throw a type error when the first argument is not a string.', assert => {
   assert.plan(1)
 
   glob({})
-    .catch(err => assert.equal(err.message, 'glob pattern string required'))
+    .catch(err => assert.equal(err.message, 'invalid pattern'))
 })
 
 test('throw a type error when it takes no arguments.', assert => {
   assert.plan(1)
 
   glob()
-    .catch(err => assert.equal(err.message, 'glob pattern string required'))
+    .catch(err => assert.equal(err.message, 'invalid pattern'))
 })
