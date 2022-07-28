@@ -29,12 +29,16 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "install-peer": "install-group peer --no-save",
+    "pretest": "npm run install-peer",
     "test": "tap test --no-coverage",
     "test:watch": "tap test --watch",
+    "pretest:ci": "npm run install-peer",
     "test:ci": "tap test --100",
     "test:report": "opener coverage/lcov-report/index.html"
   },
   "devDependencies": {
+    "install-group": "^3.0.0",
     "tap": "^16.3.0"
   },
   "peerDependencies": {
