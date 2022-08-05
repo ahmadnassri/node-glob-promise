@@ -20,10 +20,10 @@ lint: ## run super-linter
 	@docker compose run --rm lint
 
 install: ## install all dependencies
-	@docker compose run --rm -e NPM_TOKEN=$(NPM_TOKEN) -e GITHUB_TOKEN=$(GITHUB_TOKEN) -v $(NPMRC):/root/.npmrc test npm install --no-fund --no-audit
+	@docker compose run --rm -e NPM_TOKEN=$(NPM_TOKEN) -e GITHUB_TOKEN=$(GITHUB_TOKEN) -v $(NPMRC):/root/.npmrc node npm install --no-fund --no-audit
 
-test: install ## run all npm tests
-	@docker compose run --rm test npm run test:ci
+test: ## run all npm tests
+	@docker compose --profile test up
 
 clean: ## remove running containers, volumes, node_modules & anything else
 	@docker compose rm --force -v

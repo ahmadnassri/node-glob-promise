@@ -2,20 +2,10 @@
 # Note: this file originates in template-node-lib #
 # ----------------------------------------------- #
 
-version: '3.8'
-
-x-node: &node
-  tty: true
-  volumes:
-    - type: bind
-      source: .
-      target: /app
-  working_dir: /app
-  command: npm run test
-
 services:
   # ---- super-linter ---- #
   lint:
+    profiles: ["dev"]
     image: github/super-linter:v3
     volumes:
       - ./:/github/workspace
@@ -29,10 +19,21 @@ services:
 
   # ---- readme generator ---- #
   readme:
+    profiles: ["dev"]
     image: pandoc/core:2.13
     volumes:
       - ./:/data
     command: --defaults=.pandoc.yml
+
+  node: &node
+    image: node:alpine
+    tty: true
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    working_dir: /app
+    command: npm --no-update-notifier run test -- --reporter=classic
 
   test:
     <<: *node
@@ -42,14 +43,17 @@ services:
       - node16
       - node18
 
-  node12:
-    <<: *node
-    image: node:12-alpine
-
   node14:
     <<: *node
+    profiles: ["test"]
     image: node:14-alpine
 
-  node15:
+  node16:
     <<: *node
-    image: node:15-alpine
+    profiles: ["test"]
+    image: node:16-alpine
+
+  node18:
+    <<: *node
+    profiles: ["test"]
+    image: node:18-alpine
