@@ -25,7 +25,8 @@ services:
       - ./:/data
     command: --defaults=.pandoc.yml
 
-  node: &node
+  app: &app
+    profiles: ["app"]
     image: node:alpine
     tty: true
     volumes:
@@ -36,7 +37,8 @@ services:
     command: npm --no-update-notifier run test -- --reporter=classic
 
   test:
-    <<: *node
+    <<: *app
+    profiles: ["test"]
     image: node:alpine
     depends_on:
       - node14
@@ -44,16 +46,16 @@ services:
       - node18
 
   node14:
-    <<: *node
+    <<: *app
     profiles: ["test"]
     image: node:14-alpine
 
   node16:
-    <<: *node
+    <<: *app
     profiles: ["test"]
     image: node:16-alpine
 
   node18:
-    <<: *node
+    <<: *app
     profiles: ["test"]
     image: node:18-alpine
