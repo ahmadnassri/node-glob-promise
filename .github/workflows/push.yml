@@ -13,14 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      repository: ${{ steps.metadata.outputs.repository }}
       dockerfile: ${{ steps.dockerfile.outputs.exists }}
+      repository_is_template: ${{ steps.metadata.outputs.repository_is_template }}
+      repository_default_branch: ${{ steps.metadata.outputs.repository_default_branch }}
+
 
     steps:
       - uses: actions/checkout@v2.3.5
 
       - id: metadata
-        uses: ahmadnassri/action-metadata@v1
+        uses: ahmadnassri/action-metadata@v2.1.1
 
       - id: dockerfile
         run: |
@@ -123,7 +125,9 @@ jobs:
       - test-run
 
     # only runs on main branch for non template repos
-    if: ${{ github.ref == 'refs/heads/master' && !fromJSON(needs.metadata.outputs.repository).is_template }}
+    if: |
+      needs.metadata.outputs.repository_is_template == 'false' &&
+      needs.metadata.outputs.repository_default_branch == github.ref_name
 
     timeout-minutes: 20
 
@@ -248,8 +252,10 @@ jobs:
       - commit-lint
       - super-linter
 
-    # only runs on main branch and only for the template
-    if: ${{ github.ref == 'refs/heads/master' && fromJSON(needs.metadata.outputs.repository).is_template }}
+    # only runs on main branch for template repos
+    if: |
+      needs.metadata.outputs.repository_is_template == 'true' &&
+      needs.metadata.outputs.repository_default_branch == github.ref_name
 
     runs-on: ubuntu-latest
 
