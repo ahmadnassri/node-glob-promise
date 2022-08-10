@@ -21,7 +21,7 @@
     "promise"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "files": [
     "lib"

@@ -84,7 +84,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: parse
-        run: echo "::set-output name=matrix::$(jq -c . < .github/matrix.json)"
+        run: echo "::set-output name=matrix::$(jq -c . < .github/test-matrix.json)"
 
   test-run:
     needs:
