@@ -6,7 +6,7 @@ services:
   # ---- super-linter ---- #
   lint:
     profiles: ["dev"]
-    image: github/super-linter:v3
+    image: github/super-linter:slim-v4
     volumes:
       - ./:/github/workspace
     environment:
