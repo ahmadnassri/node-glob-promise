@@ -10,6 +10,9 @@ permissions:
   pull-requests: write
   contents: write
 
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+
 jobs:
   metadata:
     runs-on: ubuntu-latest

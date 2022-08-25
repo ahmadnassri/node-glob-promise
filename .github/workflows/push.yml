@@ -8,6 +8,9 @@ on:
 
 name: push
 
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+
 jobs:
   metadata:
     runs-on: ubuntu-latest
@@ -40,24 +43,28 @@ jobs:
         with:
           config: .github/linters/.commit-lint.yml
 
-  super-linter:
+  mega-linter:
     timeout-minutes: 5
 
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v3.0.2
 
-      - uses: github/super-linter/slim@v4
+      - uses: oxsecurity/megalinter/flavors/javascript@v6
         env:
-          LOG_LEVEL: ERROR
-          VALIDATE_JSCPD: 'false'
-          VALIDATE_ALL_CODEBASE: 'false'
-          IGNORE_GITIGNORED_FILES: 'true'
-          FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
           GITHUB_TOKEN: ${{ github.token }}
+          MEGALINTER_CONFIG: .github/linters/.mega-linter.yml
+          GITHUB_COMMENT_REPORTER: true
+          GITHUB_STATUS_REPORTER: true
+
+      - uses: actions/upload-artifact@v2
+        if: ${{ success() }} || ${{ failure() }}
+        with:
+          name: mega-linter-reports
+          path: |
+            megalinter-reports
+            mega-linter.log
 
   npm-audit:
     timeout-minutes: 5
@@ -122,7 +129,7 @@ jobs:
       - metadata
       - test-run
       - commit-lint
-      - super-linter
+      - mega-linter
 
     # only runs on main branch for non template repos
     if: |
@@ -250,7 +257,7 @@ jobs:
       - metadata
       - test-run
       - commit-lint
-      - super-linter
+      - mega-linter
 
     # only runs on main branch for template repos
     if: |
@@ -260,10 +267,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ahmadnassri/action-workflow-queue@v1.1
-
       - uses: actions/checkout@v3
 
-      - uses: ahmadnassri/action-template-repository-sync@v1.6.0
+      - uses: ahmadnassri/action-template-repository-sync@v2
         with:
           github-token: ${{ secrets.GH_TOKEN }}

@@ -1,0 +1,11 @@
+# ------------------------------------------------------------- #
+# Note: this file is automatically managed in template-template #
+# ------------------------------------------------------------- #
+
+quiet: true
+skip-check:
+  - CKV_DOCKER_2
+  - CKV_GHA_3
+  - BC_DKR_3
+  - CKV_GIT_1
+  - CKV_GIT_5

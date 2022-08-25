@@ -3,19 +3,16 @@
 # ----------------------------------------------- #
 
 services:
-  # ---- super-linter ---- #
+  # ---- mega-linter ---- #
   lint:
     profiles: ["dev"]
-    image: github/super-linter:slim-v4
+    image: oxsecurity/megalinter-javascript:v6
     volumes:
-      - ./:/github/workspace
+      - ./:/tmp/lint
     environment:
-      RUN_LOCAL: 'true'
-      LOG_LEVEL: 'ERROR'
-      MULTI_STATUS: 'false'
-      IGNORE_GITIGNORED_FILES: 'true'
-      DEFAULT_WORKSPACE: /github/workspace
-      FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
+      MEGALINTER_CONFIG: .github/linters/.mega-linter.yml
+      REPORT_OUTPUT_FOLDER: none
+      VALIDATE_ALL_CODEBASE: true
 
   # ---- readme generator ---- #
   readme:
@@ -34,12 +31,13 @@ services:
         source: .
         target: /app
     working_dir: /app
-    command: npm --no-update-notifier run test -- --reporter=classic
+    command: npm --no-update-notifier run start
 
   test:
     <<: *app
     profiles: ["test"]
     image: node:alpine
+    command: npm --no-update-notifier run test -- --reporter=classic
     depends_on:
       - node14
       - node16
