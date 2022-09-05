@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
+      image-name: ${{ steps.image.outputs.name }}
       dockerfile: ${{ steps.dockerfile.outputs.exists }}
       repository_is_template: ${{ steps.metadata.outputs.repository_is_template }}
       repository_default_branch: ${{ steps.metadata.outputs.repository_default_branch }}
@@ -29,6 +30,9 @@ jobs:
       - id: dockerfile
         run: |
           [[ -f "${{ github.workspace }}/Dockerfile" ]] && echo '::set-output name=exists::yes' || exit 0
+
+      - id: image
+        run: echo "::set-output name=name::$(basename "${GITHUB_REPOSITORY/node-//}")"
 
   commit-lint:
     timeout-minutes: 5
