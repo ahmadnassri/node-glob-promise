@@ -1,8 +1,8 @@
 #!/usr/bin/make
 
-# ------------------------------------------------------------- #
-# Note: this file is automatically managed in template-node-lib #
-# ------------------------------------------------------------- #
+# ----------------------------------------------- #
+# Note: this file originates in template-node-lib #
+# ----------------------------------------------- #
 
 NPMRC := $(shell npm config get userconfig)
 
@@ -18,10 +18,16 @@ lint: ## run super-linter
 	@docker compose run --rm lint
 
 install: ## install all dependencies
-	@docker compose run --rm -e NPM_TOKEN=$(NPM_TOKEN) -e GITHUB_TOKEN=$(GITHUB_TOKEN) -v $(NPMRC):/root/.npmrc node npm install --no-fund --no-audit
+	@docker compose run --rm -e NPM_TOKEN=$(NPM_TOKEN) -e GITHUB_TOKEN=$(GITHUB_TOKEN) -v $(NPMRC):/root/.npmrc app install
 
 test: ## run all npm tests
 	@docker compose --profile test up
+
+coverage: ## run all npm tests with coverage
+	@docker compose run test-coverage
+
+shell: ## start the container shell
+	@docker compose run --rm --entrypoint /bin/sh app
 
 clean: ## remove running containers, volumes, node_modules & anything else
 	@docker compose rm --force -v
@@ -34,4 +40,4 @@ help: ## display this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
-.PHONY: help all clean test
+.PHONY: help all clean test coverage

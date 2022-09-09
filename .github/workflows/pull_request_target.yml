@@ -36,13 +36,13 @@ jobs:
 
     env:
       PR_URL: ${{github.event.pull_request.html_url}}
-      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      GITHUB_TOKEN: ${{ github.token }}
 
     steps:
       - id: dependabot
         uses: dependabot/fetch-metadata@v1.3.3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token  }}
 
       - name: auto merge conditions
         id: auto-merge

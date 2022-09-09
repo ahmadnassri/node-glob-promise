@@ -11,6 +11,14 @@ name: push
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
 
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
+
+env:
+  NODE_ENV: test
+
 jobs:
   metadata:
     runs-on: ubuntu-latest
@@ -28,8 +36,7 @@ jobs:
         uses: ahmadnassri/action-metadata@v2.1.1
 
       - id: dockerfile
-        run: |
-          [[ -f "${{ github.workspace }}/Dockerfile" ]] && echo '::set-output name=exists::yes' || exit 0
+        run: echo "::set-output name=exists::$([[ -f "${{ github.workspace }}/Dockerfile" ]] && echo true || echo false)"
 
       - id: image
         run: echo "::set-output name=name::$(basename "${GITHUB_REPOSITORY/node-//}")"
@@ -61,7 +68,7 @@ jobs:
           GITHUB_COMMENT_REPORTER: true
           GITHUB_STATUS_REPORTER: true
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3.1.0
         if: ${{ success() }} || ${{ failure() }}
         with:
           name: mega-linter-reports
@@ -115,16 +122,18 @@ jobs:
         with:
           submodules: true
 
+      - uses: ahmadnassri/action-dotenv@v1.0.1
+
       - uses: actions/setup-node@v3.4.1
         with:
-          registry-url: https://npm.pkg.github.com
           node-version: ${{ matrix.node-version }}
           cache: npm
 
-      - run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ahmadnassri/action-github-registry-npm-proxy@v3.0.1
+        with:
+          token: ${{ github.token }}
 
+      - run: npm ci
       - run: npm run test:ci
 
   release:
@@ -153,6 +162,16 @@ jobs:
       - uses: actions/checkout@v3.0.2
         with:
           submodules: true
+
+      - uses: actions/setup-node@v3.4.1
+        with:
+          cache: npm
+
+      - uses: ahmadnassri/action-github-registry-npm-proxy@v3.0.1
+        with:
+          token: ${{ github.token }}
+
+      - run: npm ci
 
       - id: release
         uses: ahmadnassri/action-semantic-release@v2
@@ -190,6 +209,9 @@ jobs:
           npm publish
 
   publish-strategy:
+    needs:
+      - metadata
+
     timeout-minutes: 5
 
     # only runs on main branch for non template repos
@@ -217,7 +239,7 @@ jobs:
 
     if: |
       needs.release.outputs.published == 'true' &&
-      needs.metadata.outputs.dockerfile == 'yes'
+      needs.metadata.outputs.dockerfile == 'true'
 
     name: ${{ format('publish to {0}', matrix.registry) || 'publish-step' }}
 
@@ -285,6 +307,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3.0.2
 
-      - uses: ahmadnassri/action-template-repository-sync@v2
+      - uses: ahmadnassri/action-template-repository-sync@v2.2.0
         with:
           github-token: ${{ secrets.GH_TOKEN }}

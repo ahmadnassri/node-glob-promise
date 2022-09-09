@@ -2,8 +2,20 @@
 # Note: this file originates in template-node-lib #
 # ----------------------------------------------- #
 
+# copy of .gitignore (npm will only use .npmignore if it exists)
 *.log
 .nyc_output
 coverage
 node_modules
 **/dist
+
+# additional ignore
+.editorconfig
+.github
+.pandoc.yml
+.semantic.json
+.taprc.yml
+colophon.yml
+docker-compose.yml
+Makefile
+test
