@@ -61,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.0.2
 
-      - uses: oxsecurity/megalinter/flavors/javascript@v6
+      - uses: oxsecurity/megalinter/flavors/javascript@v6.9.1
         env:
           GITHUB_TOKEN: ${{ github.token }}
           MEGALINTER_CONFIG: .github/linters/.mega-linter.yml
@@ -122,7 +122,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: ahmadnassri/action-dotenv@v1.0.1
+      - uses: ahmadnassri/action-dotenv@v1.0.2
 
       - uses: actions/setup-node@v3.4.1
         with:
@@ -167,10 +167,6 @@ jobs:
         with:
           cache: npm
 
-      - uses: ahmadnassri/action-github-registry-npm-proxy@v3.0.1
-        with:
-          token: ${{ github.token }}
-
       - run: npm ci
 
       - id: release
@@ -202,7 +198,7 @@ jobs:
 
       - name: publish to github registry
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ github.token }}
         run: |
           jq '.name = "@'"${GITHUB_REPOSITORY/node-/}"'"' package.json > /tmp/package.json; mv /tmp/package.json .
           npm version --no-git-tag-version "v${{ needs.release.outputs.version }}"
