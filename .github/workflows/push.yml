@@ -36,10 +36,10 @@ jobs:
         uses: ahmadnassri/action-metadata@v2.1.1
 
       - id: dockerfile
-        run: echo "::set-output name=exists::$([[ -f "${{ github.workspace }}/Dockerfile" ]] && echo true || echo false)"
+        run: echo "exists=$([[ -f "${{ github.workspace }}/Dockerfile" ]] && echo true || echo false)" >> $GITHUB_OUTPUT
 
       - id: image
-        run: echo "::set-output name=name::$(basename "${GITHUB_REPOSITORY/node-//}")"
+        run: echo "name=$(basename "${GITHUB_REPOSITORY/node-//}")" >> $GITHUB_OUTPUT
 
   commit-lint:
     timeout-minutes: 5
@@ -101,7 +101,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.0.2
       - id: parse
-        run: echo "::set-output name=matrix::$(jq -c . < .github/test-matrix.json)"
+        run: echo "matrix=$(jq -c . < .github/test-matrix.json)" >> $GITHUB_OUTPUT
 
   test-run:
     needs:
@@ -223,7 +223,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.0.2
       - id: parse
-        run: echo "::set-output name=matrix::$(jq -c . < .github/publish-matrix.json)"
+        run: echo "matrix=$(jq -c . < .github/publish-matrix.json)" >> $GITHUB_OUTPUT
 
   publish-docker:
     needs:
@@ -264,7 +264,7 @@ jobs:
 
       - id: meta
         run: |
-          echo "::set-output name=name::${{ github.repository_owner }}/$(basename "${GITHUB_REPOSITORY/node-//}")"
+          echo "name=${{ github.repository_owner }}/$(basename "${GITHUB_REPOSITORY/node-//}")" >> $GITHUB_OUTPUT
 
       # publish
       - uses: docker/build-push-action@v3
