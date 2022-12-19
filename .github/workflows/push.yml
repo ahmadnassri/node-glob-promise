@@ -170,7 +170,7 @@ jobs:
       - run: npm ci
 
       - id: release
-        uses: ahmadnassri/action-semantic-release@v2
+        uses: ahmadnassri/action-semantic-release@v2.1.11
         with:
           config: ${{ github.workspace }}/.semantic.json
         env:
