@@ -4,8 +4,6 @@ Match files using the patterns the shell uses, like stars and stuff.
 
 [![license][license-img]][license-url]
 [![release][release-img]][release-url]
-[![super linter][super-linter-img]][super-linter-url]
-[![test][test-img]][test-url]
 [![semantic][semantic-img]][semantic-url]
 
 > ***Note**: This is just a [`Promise`][] wrapped version of [`glob`][]*
@@ -20,8 +18,8 @@ $ npm install glob-promise glob
 
 [`glob`][] is set as a `peerDependency` in [`package.json`][]
 
--   `npm` &lt;= `2` will automatically install `peerDependencies` if they are not explicitly depended upon higher in the dependency tree.
--   `npm` &gt;= 3 will no longer automatically install `peerDependencies`.
+- `npm` \<= `2` will automatically install `peerDependencies` if they are not explicitly depended upon higher in the dependency tree.
+- `npm` \>= 3 will no longer automatically install `peerDependencies`.
 
 You will need to manually add `glob` as a dependency to your project for `glob-promise` to work.
 
@@ -93,12 +91,6 @@ The option object will be directly passed to [glob][].
 
 [release-url]: https://github.com/ahmadnassri/node-glob-promise/releases
 [release-img]: https://badgen.net/github/release/ahmadnassri/node-glob-promise
-
-[super-linter-url]: https://github.com/ahmadnassri/node-glob-promise/actions?query=workflow%3Asuper-linter
-[super-linter-img]: https://github.com/ahmadnassri/node-glob-promise/workflows/super-linter/badge.svg
-
-[test-url]: https://github.com/ahmadnassri/node-glob-promise/actions?query=workflow%3Atest
-[test-img]: https://github.com/ahmadnassri/node-glob-promise/workflows/test/badge.svg
 
 [semantic-url]: https://github.com/ahmadnassri/node-glob-promise/actions?query=workflow%3Arelease
 [semantic-img]: https://badgen.net/badge/📦/semantically%20released/blue
