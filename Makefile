@@ -24,13 +24,14 @@ test: ## run all npm tests
 	@docker compose --profile test up
 
 coverage: ## run all npm tests with coverage
-	@docker compose run test-coverage
+	@docker compose run --rm test-coverage
 
 shell: ## start the container shell
 	@docker compose run --rm --entrypoint /bin/sh app
 
 clean: ## remove running containers, volumes, node_modules & anything else
 	@docker compose rm --force -v
+	@docker compose --profile test down
 	@rm -rf node_modules coverage .nyc_output
 
 # Utility methods
