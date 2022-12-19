@@ -42,7 +42,7 @@
     "glob": "^8.0.3"
   },
   "dependencies": {
-    "@types/glob": "^7.2.0",
+    "@types/glob": "^8.0.0",
     "npm-install-peers": "^1.2.2"
   }
 }
