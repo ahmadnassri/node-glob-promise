@@ -84,11 +84,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3.2.0
 
+      - uses: ahmadnassri/action-dotenv@v1.0.2
+
       - uses: actions/setup-node@v3.5.1
         with:
           node-version: latest
 
-      - run: npm audit --audit-level=critical
+      - run: npm audit
+        env:
+          NPM_CONFIG_AUDIT_LEVEL: ${{ env.NPM_CONFIG_AUDIT_LEVEL || 'critical' }}
 
   test-strategy:
     timeout-minutes: 5
