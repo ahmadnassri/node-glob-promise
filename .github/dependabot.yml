@@ -15,3 +15,27 @@ updates:
       interval: daily
       time: "10:00"
       timezone: America/Toronto
+
+  - package-ecosystem: gitsubmodule
+    open-pull-requests-limit: 10
+    directory: /
+    commit-message:
+      prefix: build
+      prefix-development: chore
+      include: scope
+    schedule:
+      interval: daily
+      time: "10:00"
+      timezone: America/Toronto
+
+  - package-ecosystem: docker
+    open-pull-requests-limit: 10
+    directory: /
+    commit-message:
+      prefix: build
+      prefix-development: chore
+      include: scope
+    schedule:
+      interval: daily
+      time: "10:00"
+      timezone: America/Toronto
