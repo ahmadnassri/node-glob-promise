@@ -32,7 +32,7 @@
     "test": "tap test --no-coverage",
     "test:watch": "tap test --watch",
     "test:ci": "tap test --100",
-    "test:report": "opener coverage/lcov-report/index.html",
+    "test:report": "opener coverage/lcov-report/index.html"
   },
   "devDependencies": {
     "tap": "^16.3.0"
