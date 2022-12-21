@@ -11,15 +11,15 @@ Match files using the patterns the shell uses, like stars and stuff.
 ## Install
 
 ``` bash
-$ npm install glob-promise glob
+npm install glob-promise glob
 ```
 
-###### NOTE:
+###### NOTE
 
 [`glob`][] is set as a `peerDependency` in [`package.json`][]
 
-- `npm` \<= `2` will automatically install `peerDependencies` if they are not explicitly depended upon higher in the dependency tree.
-- `npm` \>= 3 will no longer automatically install `peerDependencies`.
+- `npm` \>= 7 will automatically install `peerDependencies`
+- `npm` \<= 6 will **not** automatically install `peerDependencies`.
 
 You will need to manually add `glob` as a dependency to your project for `glob-promise` to work.
 
