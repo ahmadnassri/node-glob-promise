@@ -61,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.2.0
 
-      - uses: oxsecurity/megalinter/flavors/javascript@v6.15.0
+      - uses: oxsecurity/megalinter/flavors/javascript@v6.17.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
           MEGALINTER_CONFIG: .github/linters/.mega-linter.yml
@@ -307,6 +307,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3.2.0
 
-      - uses: ahmadnassri/action-template-repository-sync@v2.3.1
+      - uses: ahmadnassri/action-template-repository-sync@v2.3.2
         with:
           github-token: ${{ secrets.GH_TOKEN }}
