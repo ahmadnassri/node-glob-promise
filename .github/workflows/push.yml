@@ -68,7 +68,7 @@ jobs:
           GITHUB_COMMENT_REPORTER: true
           GITHUB_STATUS_REPORTER: true
 
-      - uses: actions/upload-artifact@v3.1.1
+      - uses: actions/upload-artifact@v3.1.2
         if: ${{ success() }} || ${{ failure() }}
         with:
           name: mega-linter-reports
