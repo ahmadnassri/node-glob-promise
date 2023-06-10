@@ -49,7 +49,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.3
 
-      - uses: ahmadnassri/action-commit-lint@v2.0.12
+      - uses: ahmadnassri/action-commit-lint@v2.1.9
         with:
           config: .github/linters/.commit-lint.yml
 
@@ -86,7 +86,7 @@ jobs:
 
       - uses: ahmadnassri/action-dotenv@v1.0.2
 
-      - uses: actions/setup-node@v3.5.1
+      - uses: actions/setup-node@v3.6.0
         with:
           node-version: latest
 
@@ -128,7 +128,7 @@ jobs:
 
       - uses: ahmadnassri/action-dotenv@v1.0.2
 
-      - uses: actions/setup-node@v3.5.1
+      - uses: actions/setup-node@v3.6.0
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
@@ -167,7 +167,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/setup-node@v3.5.1
+      - uses: actions/setup-node@v3.6.0
         with:
           cache: npm
 
@@ -195,7 +195,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/setup-node@v3.5.1
+      - uses: actions/setup-node@v3.6.0
         with:
           registry-url: https://npm.pkg.github.com
           node-version: latest
@@ -271,7 +271,7 @@ jobs:
           echo "name=${{ github.repository_owner }}/$(basename "${GITHUB_REPOSITORY/node-//}")" >> "$GITHUB_OUTPUT"
 
       # publish
-      - uses: docker/build-push-action@v3
+      - uses: docker/build-push-action@v4
         with:
           push: true
           cache-from: type=gha
