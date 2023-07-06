@@ -86,7 +86,7 @@ jobs:
 
       - uses: ahmadnassri/action-dotenv@v1.0.2
 
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.7.0
         with:
           node-version: latest
 
@@ -128,7 +128,7 @@ jobs:
 
       - uses: ahmadnassri/action-dotenv@v1.0.2
 
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.7.0
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
@@ -171,7 +171,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.7.0
         with:
           cache: npm
 
@@ -202,7 +202,7 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.7.0
         with:
           registry-url: https://npm.pkg.github.com
           node-version: latest
