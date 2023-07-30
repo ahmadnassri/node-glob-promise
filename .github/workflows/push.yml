@@ -63,7 +63,7 @@ jobs:
 
       - uses: oxsecurity/megalinter/flavors/javascript@v7.2.1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MEGALINTER_CONFIG: .github/linters/.mega-linter.yml
           GITHUB_COMMENT_REPORTER: true
           GITHUB_STATUS_REPORTER: true
@@ -135,7 +135,7 @@ jobs:
 
       - uses: ahmadnassri/action-github-registry-npm-proxy@v4.0.3
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - run: npm ci
       - run: npm run test:ci
@@ -183,7 +183,7 @@ jobs:
           config: ${{ github.workspace }}/.semantic.json
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   mirror:
     needs: release
@@ -209,7 +209,7 @@ jobs:
 
       - name: publish to github registry
         env:
-          NODE_AUTH_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           jq '.name = "@'"${GITHUB_REPOSITORY/node-/}"'"' package.json > /tmp/package.json; mv /tmp/package.json .
           npm version --no-git-tag-version "v${{ needs.release.outputs.version }}"
@@ -274,7 +274,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ github.token }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - id: meta
         run: |
