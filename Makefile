@@ -23,9 +23,6 @@ install: ## install all dependencies
 test: ## run all npm tests
 	@docker compose --profile test up
 
-coverage: ## run all npm tests with coverage
-	@docker compose run --rm test-coverage
-
 shell: ## start the container shell
 	@docker compose run --rm --entrypoint /bin/sh app
 

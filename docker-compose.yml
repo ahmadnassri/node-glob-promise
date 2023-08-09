@@ -36,31 +36,21 @@ services:
 
   test-command:
     extends: app
-    command: run test -- --reporter=classic
-
-  test-coverage:
-    extends: app
-    command: run test:ci -- --reporter=classic
+    command: run test
 
   test:
     profiles: ["test"]
     extends: test-command
     depends_on:
-      - node14
-      - node16
       - node18
-
-  node14:
-    profiles: ["test"]
-    extends: test-command
-    image: node:14-alpine
-
-  node16:
-    profiles: ["test"]
-    extends: test-command
-    image: node:16-alpine
+      - node20
 
   node18:
     profiles: ["test"]
     extends: test-command
     image: node:18-alpine
+
+  node20:
+    profiles: ["test"]
+    extends: test-command
+    image: node:20-alpine
