@@ -10,5 +10,5 @@ permissions: read-all
 
 jobs:
   main:
-    uses: ahmadnassri/actions/.github/workflows/pull-request-target-template.yml@master
+    uses: ahmadnassri/actions/.github/workflows/pull-request-target.yml@master
     secrets: inherit
