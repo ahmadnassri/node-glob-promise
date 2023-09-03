@@ -26,13 +26,15 @@ services:
     profiles: ["app"]
     image: node:latest
     working_dir: /usr/src/lib
-    entrypoint: npm --no-update-notifier --no-fund --no-audit
-    command: start
+    entrypoint: npm
     tty: true
     volumes:
       - ./:/usr/src/lib
     environment:
       NODE_ENV: test
+      NPM_CONFIG_UPDATE_NOTIFIER: false
+      NPM_CONFIG_FUND: false
+      NPM_CONFIG_AUDIT: false
 
   test-command:
     extends: app
