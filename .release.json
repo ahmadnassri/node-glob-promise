@@ -33,7 +33,6 @@
     ["@semantic-release/github", {
       "successComment": false,
       "failComment": false
-    }],
-    "@semantic-release/npm"
+    }]
   ]
 }
