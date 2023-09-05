@@ -1,6 +1,6 @@
 {
-  "include": [
-    { "id": "NPM", "registry": "https://registry.npmjs.org", "name": "glob-promise" },
-    { "id": "GITHUB", "registry": "https://npm.pkg.github.com", "name": "@ahmadnassri/glob-promise" }
+  "registry": [
+    { "id": "NPM", "url": "https://registry.npmjs.org", "name": "glob-promise" },
+    { "id": "GITHUB", "url": "https://npm.pkg.github.com", "name": "@ahmadnassri/glob-promise" }
   ]
 }
