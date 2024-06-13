@@ -1,5 +1,9 @@
 > _**Note**: This is just a [`Promise`][Promise] wrapped version of [`glob`][glob]_
 
+> [!IMPORTANT]  
+> [Glob][glob] has native Promise support as of `v9.0.0`, please use it directly.
+> I will not issue a deprecation notice on this package, because I can't deal with the volume of angry tickets that will follow.
+
 ## Install
 
 ```bash

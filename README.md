@@ -8,6 +8,10 @@ Match files using the patterns the shell uses, like stars and stuff.
 
 > ***Note**: This is just a [`Promise`][] wrapped version of [`glob`][]*
 
+> \[!IMPORTANT\]  
+> [Glob][`glob`] has native Promise support as of `v9.0.0`, please use it directly.
+> I will not issue a deprecation notice on this package, because I can't deal with the volume of angry tickets that will follow.
+
 ## Install
 
 ``` bash
