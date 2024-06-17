@@ -6,8 +6,6 @@
 
 NPMRC := $(shell npm config get userconfig)
 
-# Docker
-
 pull: ## pull latest containers
 	@docker compose pull
 
